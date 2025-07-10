@@ -7,7 +7,7 @@ ENV HADOOP_VERSION=3
 ENV SPARK_HOME=/opt/spark
 ENV PATH=$SPARK_HOME/bin:$PATH
 
-# Install Python, pip, and curl
+# Install Python, pip, curl
 RUN apt-get update && \
     apt-get install -y python3 python3-pip curl && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -17,10 +17,13 @@ RUN curl -fsSL https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spar
     tar -xz -C /opt && \
     mv /opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION} $SPARK_HOME
 
-# Install Python dependencies (including numpy)
+# Install Python dependencies
 RUN pip3 install --no-cache-dir pyspark==${SPARK_VERSION} spark-nlp numpy
 
-# Set the working directory
+# Copy Spark NLP JAR into Spark jars directory
+COPY spark-nlp-5.1.3.jar $SPARK_HOME/jars/
+
+# Set working directory
 WORKDIR /app
 
 # Copy your Python script
