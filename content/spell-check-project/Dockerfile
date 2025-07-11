@@ -21,7 +21,7 @@ RUN curl -fsSL https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spar
 RUN pip3 install --no-cache-dir pyspark==${SPARK_VERSION} spark-nlp numpy
 
 # Copy Spark NLP JAR into Spark jars directory
-COPY spark-nlp-5.1.3.jar $SPARK_HOME/jars/
+COPY spark-nlp-6.0.5.jar $SPARK_HOME/jars/
 
 # Set working directory
 WORKDIR /app
